@@ -1,0 +1,4 @@
+/* Removido o ruído visual */
+.fundo-granulado {
+  background: none;
+}

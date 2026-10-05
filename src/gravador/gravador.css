@@ -1,0 +1,300 @@
+:root {
+  --bg-app: #121214;
+  --bg-card: #18181b;
+  --borda: #27272a;
+  --texto: #f4f4f5;
+  --texto-sec: #a1a1aa;
+  --vermelho: #ef4444;
+  --destaque: #ffffff;
+}
+
+.grv {
+  box-sizing: border-box;
+  width: 360px;
+  min-height: 440px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  background: var(--bg-app);
+  border: 1px solid var(--borda);
+  color: var(--texto);
+}
+
+/* Topo / Status */
+.grv-topo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  color: var(--texto-sec);
+  border-bottom: 1px solid var(--borda);
+  padding-bottom: 10px;
+}
+
+.grv-marca {
+  color: var(--texto);
+  font-weight: 700;
+}
+
+.grv-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.grv-ponto {
+  width: 7px;
+  height: 7px;
+  background: #52525b;
+  border-radius: 50%;
+}
+
+.grv--gravando .grv-ponto {
+  background: var(--vermelho);
+}
+
+.grv--pausado .grv-ponto {
+  background: #eab308;
+}
+
+/* Acesso à biblioteca */
+.grv-biblioteca {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 12px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--texto-sec);
+  background: var(--bg-card);
+  border: 1px solid var(--borda);
+  cursor: pointer;
+}
+
+.grv-biblioteca b {
+  color: var(--texto);
+  background: var(--borda);
+  padding: 1px 6px;
+  border-radius: 2px;
+  font-size: 11px;
+}
+
+.grv-biblioteca:hover {
+  border-color: #3f3f46;
+  color: var(--texto);
+}
+
+/* Título */
+.grv-titulo {
+  margin: 4px 0 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--texto);
+  letter-spacing: -0.01em;
+}
+
+.grv-titulo span {
+  display: inline-block;
+  margin-right: 4px;
+}
+
+/* Seletor de fontes (Tela / Janela / Aba) */
+.grv-fontes {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 6px;
+}
+
+.grv-fonte {
+  padding: 8px 4px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--texto-sec);
+  background: var(--bg-card);
+  border: 1px solid var(--borda);
+  cursor: pointer;
+  text-align: center;
+}
+
+.grv-fonte:hover {
+  background: #27272a;
+}
+
+.grv-fonte.ativa {
+  background: #27272a;
+  color: #fff;
+  border-color: #52525b;
+}
+
+/* Opções de áudio */
+.grv-opcoes {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background: var(--bg-card);
+  padding: 12px;
+  border: 1px solid var(--borda);
+}
+
+.grv-opcao {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 13px;
+  color: var(--texto-sec);
+  cursor: pointer;
+  user-select: none;
+}
+
+.grv-opcao input {
+  accent-color: var(--vermelho);
+  cursor: pointer;
+  width: 15px;
+  height: 15px;
+}
+
+.grv-chave {
+  display: none; /* remove o switch antigo e usa o checkbox padrão limpo */
+}
+
+/* Botões */
+.grv-btn {
+  padding: 10px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--texto);
+  background: var(--bg-card);
+  border: 1px solid var(--borda);
+  cursor: pointer;
+}
+
+.grv-btn:hover {
+  background: #27272a;
+}
+
+.grv-btn--principal {
+  background: #27272a;
+  border-color: #3f3f46;
+  color: #ffffff;
+}
+
+.grv-btn--principal:hover {
+  background: #3f3f46;
+}
+
+.grv-btn--texto {
+  background: none;
+  border: none;
+  font-size: 11px;
+  color: var(--texto-sec);
+  cursor: pointer;
+  padding: 4px;
+}
+
+.grv-btn--texto:hover {
+  color: #fff;
+}
+
+.grv-acoes {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  margin-top: auto;
+}
+
+/* Contagem simples */
+.grv-contagem-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 30px 0;
+  gap: 12px;
+}
+
+.grv-contagem-num {
+  font-family: monospace;
+  font-size: 54px;
+  font-weight: 700;
+  color: var(--texto);
+}
+
+/* Tempo de gravação */
+.grv-tempo {
+  margin: 16px 0 4px;
+  font-family: monospace;
+  font-size: 40px;
+  font-weight: 700;
+  color: var(--texto);
+  text-align: center;
+  letter-spacing: -0.03em;
+}
+
+.grv-info {
+  margin: 0;
+  font-size: 11px;
+  color: var(--texto-sec);
+  text-align: center;
+}
+
+/* Botão Mini Pop Flutuante */
+.grv-btn-pip {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px;
+  font-size: 11px;
+  color: var(--texto-sec);
+  background: var(--bg-card);
+  border: 1px solid var(--borda);
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.grv-btn-pip svg {
+  width: 14px;
+  height: 14px;
+}
+
+.grv-btn-pip:hover {
+  border-color: #3f3f46;
+  color: var(--texto);
+}
+
+/* Player e info do arquivo gravado */
+.grv-player-container {
+  width: 100%;
+  background: #000;
+  border: 1px solid var(--borda);
+}
+
+.grv-video {
+  width: 100%;
+  max-height: 160px;
+  display: block;
+}
+
+.grv-arquivo {
+  background: var(--bg-card);
+  border: 1px solid var(--borda);
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.grv-arquivo-nome {
+  font-size: 12px;
+  font-weight: 600;
+  word-break: break-all;
+}
+
+.grv-arquivo-info {
+  font-size: 11px;
+  color: var(--texto-sec);
+  font-family: monospace;
+}

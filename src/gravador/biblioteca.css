@@ -1,0 +1,219 @@
+.bib {
+  box-sizing: border-box;
+  width: 360px;
+  min-height: 440px;
+  max-height: 520px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  overflow-y: auto;
+  background: #121214;
+  border: 1px solid #27272a;
+  color: #e4e4e7;
+}
+
+.bib--pagina {
+  width: 100%;
+  max-width: 640px;
+  max-height: none;
+  margin: 0 auto;
+}
+
+.bib-topo {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  border-bottom: 1px solid #27272a;
+  padding-bottom: 10px;
+}
+
+.bib-titulo {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+}
+
+.bib-voltar {
+  display: grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  padding: 0;
+  color: #a1a1aa;
+  background: #18181b;
+  border: 1px solid #27272a;
+  cursor: pointer;
+}
+
+.bib-voltar:hover {
+  color: #fff;
+  border-color: #3f3f46;
+}
+
+.bib-voltar svg {
+  width: 16px;
+  height: 16px;
+}
+
+.bib-resumo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 11px;
+  color: #a1a1aa;
+}
+
+.bib-link {
+  padding: 0;
+  font-size: 11px;
+  color: #a1a1aa;
+  background: none;
+  border: none;
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.bib-link:hover {
+  color: #fff;
+}
+
+.bib-vazio {
+  margin: 20px 0;
+  font-size: 12px;
+  color: #71717a;
+  text-align: center;
+}
+
+.bib-lista {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.bib-item {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 10px;
+  background: #18181b;
+  border: 1px solid #27272a;
+}
+
+.bib-dados {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.bib-nome {
+  font-size: 12px;
+  font-weight: 600;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.bib-meta {
+  font-size: 11px;
+  color: #71717a;
+  font-family: monospace;
+}
+
+.bib-acoes,
+.bib-confirma {
+  display: flex;
+  gap: 6px;
+}
+
+.bib-btn {
+  padding: 6px 10px;
+  font-size: 11px;
+  font-weight: 500;
+  color: #e4e4e7;
+  background: #27272a;
+  border: 1px solid #3f3f46;
+  cursor: pointer;
+}
+
+.bib-btn:hover {
+  background: #3f3f46;
+}
+
+.bib-btn--perigo {
+  background: #7f1d1d;
+  border-color: #991b1b;
+  color: #fca5a5;
+}
+
+.bib-lixo {
+  padding: 6px 8px;
+  background: transparent;
+  border: 1px solid #27272a;
+  color: #71717a;
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+}
+
+.bib-lixo:hover {
+  color: #ef4444;
+  border-color: #ef4444;
+}
+
+.bib-lixo svg {
+  width: 14px;
+  height: 14px;
+}
+
+/* Modal de vídeo simples */
+.bib-modal {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+  padding: 12px;
+}
+
+.bib-modal-corpo {
+  width: 100%;
+  max-width: 320px;
+  background: #18181b;
+  border: 1px solid #27272a;
+}
+
+.bib-modal-topo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 10px;
+  border-bottom: 1px solid #27272a;
+}
+
+.bib-modal-titulo {
+  font-size: 12px;
+  font-weight: 600;
+  color: #e4e4e7;
+}
+
+.bib-modal-fechar {
+  background: none;
+  border: none;
+  color: #a1a1aa;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.bib-video-player {
+  width: 100%;
+  max-height: 200px;
+  background: #000;
+  display: block;
+}

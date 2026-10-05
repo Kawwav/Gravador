@@ -1,0 +1,14 @@
+{
+  "manifest_version": 3,
+  "name": "Kawwa Rec",
+  "version": "1.0.0",
+  "description": "Gravador de tela minimalista e funcional.",
+  "permissions": [
+    "storage",
+    "downloads"
+  ],
+  "action": {
+    "default_popup": "index.html",
+    "default_title": "Kawwa Rec"
+  }
+}
