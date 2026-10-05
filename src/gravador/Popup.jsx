@@ -6,7 +6,7 @@ import './pip.css'
 
 export default function Popup() {
   const [tela, setTela] = useState('gravar')
-  const [estado, setEstado] = useState('ocioso')
+  const [estado, setEstado] = useState('ocioso') // 'ocioso' | 'contagem' | 'gravando' | 'pausado' | 'pronto'
   const [contagem, setContagem] = useState(3)
   const [arquivo, setArquivo] = useState(null)
   const [videoUrl, setVideoUrl] = useState(null)
@@ -29,6 +29,7 @@ export default function Popup() {
     contar()
   }, [tela, estado])
 
+  // Cronômetro principal
   useEffect(() => {
     if (estado === 'ocioso' || estado === 'contagem') {
       setSegundos(0)
@@ -41,6 +42,7 @@ export default function Popup() {
     return () => clearInterval(t)
   }, [estado])
 
+  // Sincroniza o cronômetro com a mini janela flutuante
   useEffect(() => {
     if (pipWindowRef.current && !pipWindowRef.current.closed) {
       const pipDoc = pipWindowRef.current.document
@@ -84,6 +86,7 @@ export default function Popup() {
     }
   }
 
+  // Mini janela flutuante Always-On-Top
   const abrirMiniPopupFlutuante = async () => {
     if (!('documentPictureInPicture' in window) || pipWindowRef.current) return
 
@@ -128,6 +131,7 @@ export default function Popup() {
     }
   }
 
+  // Abre o mini controle flutuante automaticamente ao sair da aba
   useEffect(() => {
     const aoMudarVisibilidade = () => {
       if (document.hidden && (estado === 'gravando' || estado === 'pausado')) {
@@ -139,11 +143,35 @@ export default function Popup() {
     return () => document.removeEventListener('visibilitychange', aoMudarVisibilidade)
   }, [estado])
 
+  // Mede a duração real do arquivo WebM (que normalmente volta como Infinity)
+  const medirDuracaoReal = (blob, fallback) =>
+    new Promise((resolve) => {
+      const v = document.createElement('video')
+      v.preload = 'metadata'
+      v.onloadedmetadata = () => {
+        if (v.duration === Infinity) {
+          v.currentTime = 1e7
+          v.ontimeupdate = () => {
+            v.ontimeupdate = null
+            resolve(Math.round(v.duration))
+            v.remove()
+          }
+        } else {
+          resolve(Math.round(v.duration))
+          v.remove()
+        }
+      }
+      v.onerror = () => resolve(fallback)
+      v.src = URL.createObjectURL(blob)
+    })
+
   const aoFinalizar = async (blob, duracao) => {
     const url = URL.createObjectURL(blob)
     setVideoUrl(url)
 
-    const salvo = await salvarGravacao(blob, duracao)
+    const duracaoReal = await medirDuracaoReal(blob, duracao)
+    const salvo = await salvarGravacao(blob, duracaoReal)
+
     setArquivo({
       id: salvo.id,
       nome: salvo.nome,
@@ -153,6 +181,7 @@ export default function Popup() {
     setEstado('pronto')
   }
 
+  // 1. Captura a 30 FPS estáveis (evita descarte de quadros e vídeo mais curto que o real)
   const iniciarCaptura = async ({ fonte, audioSistema, microfone }) => {
     try {
       const displaySurface = fonte === 'tela' ? 'monitor' : fonte === 'janela' ? 'window' : 'browser'
@@ -160,7 +189,7 @@ export default function Popup() {
       const screenStream = await navigator.mediaDevices.getDisplayMedia({
         video: {
           displaySurface,
-          frameRate: { ideal: 60, max: 60 },
+          frameRate: { ideal: 30, max: 30 },
           cursor: 'always',
         },
         audio: audioSistema,
@@ -203,11 +232,13 @@ export default function Popup() {
       audioContextRef.current = audioCtx
       chunksRef.current = []
 
+      // Se o usuário clicar em "Interromper compartilhamento" na barra nativa
       const videoTrack = screenStream.getVideoTracks()[0]
       if (videoTrack) {
         videoTrack.onended = () => pararGravacao()
       }
 
+      // 2. Contagem regressiva de 3 a 0
       setEstado('contagem')
       setContagem(3)
 
@@ -229,6 +260,7 @@ export default function Popup() {
     }
   }
 
+  // 3. Gravação com codec leve acelerado por hardware e bitrate seguro
   const dispararGravacao = (stream) => {
     try {
       const codecs = [
@@ -241,7 +273,7 @@ export default function Popup() {
 
       const recorder = new MediaRecorder(stream, {
         mimeType,
-        videoBitsPerSecond: 6_000_000,
+        videoBitsPerSecond: 3_500_000,
       })
       recorderRef.current = recorder
 
@@ -263,6 +295,7 @@ export default function Popup() {
       tempoPausadoRef.current = 0
       momentoPausaRef.current = 0
 
+      // Sem intervalo de tempo: gravação contínua sem micro-engasgos
       recorder.start()
       setEstado('gravando')
     } catch (err) {
